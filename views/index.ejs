@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HaikuJam App</title>
+</head>
+<body>
+    <!-- <script src="/main.js"></script> -->
+  <h1>Be a Haiku Jammer</h1>
+
+  <h2> Haiku </h2>
+  <ul class="haiku">
+    <% for(key in incompleteHaiku){ %>
+        <% if(key != '_id'){ %>
+            <li class="haiku">
+                <span><%= key %></span>:
+                <span><%= incompleteHaiku[key] %></span>
+            </li>
+        <% } %>
+    <% } %>
+    <% if(incompleteHaiku == undefined){ %>
+        <li class="haiku">
+            <span>Add Your Line to initiate a Haiku</span>:
+            <form action="/addLine" method="POST">
+                <input type="text" placeholder="Write your line" name="line">
+                <button type="submit">Submit</button>
+            </form>
+        </li>
+    <% }else{ %>
+        <li class="haiku">
+            <span>Add Your Line </span>:
+            <form action="/addLine" method="POST">
+                <input type="hidden" name="HaikuId" value="<%= incompleteHaiku['_id'] %>">
+                <input type="hidden" name="lineNumber" value="<%= (Object.keys(incompleteHaiku).length) %>">
+                <input type="text" placeholder="Write your line" name="line">
+                <button type="submit">Submit</button>
+              </form>
+        </li>
+    <% } %>
+</ul>
+</body>
+</html>
